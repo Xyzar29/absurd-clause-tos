@@ -12,5 +12,8 @@ const outDir = process.env.MAKEFUN_OUTPUT_DIR || "/output";
 if (CLAUSE.length < 1 || CLAUSE.length > 200) {
   throw new Error(`clause must be 1-200 characters, got ${CLAUSE.length}`);
 }
+if (CLAUSE !== CLAUSE.trim() || CLAUSE.includes("\n") || CLAUSE.includes("\r")) {
+  throw new Error("clause must be a single line with no leading or trailing whitespace");
+}
 mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, "entry.txt"), CLAUSE, "utf8");
